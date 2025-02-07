@@ -20,13 +20,24 @@ people = [
         "Programming Language": "Python"
 ]
 
-# Printing the organized information
-for person in people:
-    print(f"Name: {person['Name']}")
-    print(f"Slack Username: {person['Slack Username']}")
-    print(f"Email: {person['Email']}")
-    print(f"Hobby: {person['Hobby']}")
-    print(f"Country: {person['Country']}")
-    print(f"Discipline: {person['Discipline']}")
-    print(f"Programming Language: {person['Programming Language']}")
-    print("-" * 50)
+# Printing Team Member 1's details
+print("Team Member 1:")  
+print("Name:", team_members[0]["Name"])  # Prints the name of the first team member
+print("Slack Username:", team_members[0]["Slack Username"])  # Prints their Slack username
+print("Email:", team_members[0]["Email"])  # Prints their email address
+print("Hobby:", team_members[0]["Hobby"])  # Prints their hobby
+print("Country:", team_members[0]["Country"])  # Prints their country
+print("Discipline:", team_members[0]["Discipline"])  # Prints their academic discipline
+print("Programming Language:", team_members[0]["Programming Language"])  # Prints their preferred programming language
+print("-" * 50)  # Separator for readability
+
+# Printing Team Member 2's details
+print("Team Member 2:")
+print("Name:", team_members[1]["Name"])
+print("Slack Username:", team_members[1]["Slack Username"])
+print("Email:", team_members[1]["Email"])
+print("Hobby:", team_members[1]["Hobby"])
+print("Country:", team_members[1]["Country"])
+print("Discipline:", team_members[1]["Discipline"])
+print("Programming Language:", team_members[1]["Programming Language"])
+print("-" * 50)
