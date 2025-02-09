@@ -1,8 +1,11 @@
 # DNA SEQUENCE ANALYZER
+# TO GET THE GC PERCENTAGE AND COUNT OF ALL NUCLEOTIDE BASES PRESENT IN A DNA SEQ
+# AND TO GET THE REVERSE COMPLEMENT STRAND
+
 def main():
     seq="ATGCGATAGCTAGCTAGCT"
-    seq_counter(seq)
-    gc_percentage=((G_count+C_count)/len(s))*100
+    A_count, T_count, C_count, G_count = seq_counter(seq)
+    gc_percentage=((G_count+C_count)/len(seq))*100
     print(f"Nucleotide Count : ['A' : {A_count},'T':{T_count},'C':{C_count},'G':{G_count}]")
     print(f"GC Content : {gc_percentage :.2f}%")
     
