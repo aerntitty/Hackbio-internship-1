@@ -102,3 +102,4 @@ hd= hamming_distance('nora','iyeh') # type: ignore
 print (hd)
     
  
+#github link to the code:https://github.com/aerntitty/Hackbio-internship-1/blob/main/Stage%201.py
