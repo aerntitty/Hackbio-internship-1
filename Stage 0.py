@@ -43,5 +43,3 @@ print("Country:", people[1]["Country"])
 print("Discipline:", people[1]["Discipline"])
 print("Programming Language:", people[1]["Programming Language"])
 print("-" * 50)
-
-# part of tem valine although submitting later
