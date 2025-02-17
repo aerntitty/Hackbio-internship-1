@@ -34,6 +34,64 @@ protein=dna_to_protein(sequence)
 print(protein)
 
 
+import math
+
+def logistic_growth(time, P0, K, r, lag_phase, exp_phase):
+    population = []
+    for t in time:
+        if t < lag_phase:
+            population.append(P0)
+        else:
+            P_t = K / (1 + ((K - P0) / P0) * math.exp(-r * (t - lag_phase)))
+            population.append(P_t)
+    return population
+
+test_time = list(range(0, 100, 1))
+test_population = logistic_growth(test_time, 1, 100, 0.2, 5, 15)
+print(f"the first 10 values of the population are {test_population[:10]} ")  
+
+# Generate 100 different growth curves
+data = []
+time = list(range(0, 100, 1))
+for i in range(100):
+    P0_values = [1, 2, 3, 4, 5] # Different initial population sizes
+    K_values = [60, 70, 80, 90, 100]
+    r_values = [0.1, 0.2, 0.3, 0.4, 0.5]
+    lag_phase_values = [5, 7, 9, 11, 13]
+    exp_phase_values = [20, 25, 30, 35, 40]
+
+    index = i % len(P0_values)  # Cycle through values
+    P0 = P0_values[index]
+    K = K_values[index]
+    r = r_values[index]
+    lag_phase = lag_phase_values[index]
+    exp_phase = exp_phase_values[index]
+    growth = logistic_growth(time, P0, K, r, lag_phase, exp_phase)
+    for t, population in zip(time, growth):
+        data.append((i, t, population))
+
+import pandas as pd
+df = pd.DataFrame(data, columns=["Curve_ID", "Time", "Population"])
+print("First few rows of the data frame:")
+print(df.head(20))
+
+
+
+
+
+
+def time_to_80_percent_max(time, population, K):
+    threshold = 0.8 * K
+    for i, pop in enumerate(population):
+        if pop >= threshold:
+            return time[i]
+    return None
+test_time_to_80 = time_to_80_percent_max(test_time, test_population, 100)
+print("time_to_80_percent_max function:")
+print(f"{test_time_to_80}s to reach 80% of max population")
+
+
+
 
 def hamming_distance(name1, name2):
     if len(name1) != len(name2):
