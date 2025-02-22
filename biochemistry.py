@@ -48,14 +48,8 @@ def main():
      print(mutations_df.head())
      print(mutations_df.describe()) 
 
-     """
-      from this we see the lowest siftscore is 0 so any
-      amino acid with sift score 0 has the most functional impact 
-      And the highest foldx score is 67 so any amino acid with foldx score 67 has
-      the most structural impact
-
-     """
-
+     
+  
      #amino acid with the most functional and structural impact
      amino_acid=mutations_df.iloc[0,1]
      print(f"The amino acid with the most functional and structural impact is {amino_acid}")
