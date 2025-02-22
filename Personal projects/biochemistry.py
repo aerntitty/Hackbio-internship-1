@@ -22,11 +22,34 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from collections import Counter
+def main():
 
-df1=pd.read_csv(r"Hackbio-internship-1-1\shift.csv")
-df2=pd.read_csv(r"Hackbio-internship-1-1\foldX.csv")
-df1["specific_Protein_aa"]=df1["Protein"]+"_"+df1["Amino_acid"]
-df2["specific_Protein_aa"]=df2["Protein"]+"_"+df2["Amino_acid"]
+     column_names=['Protein','Amino_Acid','sift_Score']
 
-print(df1.head(5))
-print(df2.head(5))
+     df1=pd.read_csv(r"Hackbio-internship-1-1\shift.csv",sep=',',names=column_names,header=0)
+     df2=pd.read_csv(r"Hackbio-internship-1-1\foldX.csv",sep=',',names=column_names,header=0)
+     print(df2.head())
+     
+
+     df1["specific_Protein_aa"]=df1["Protein"]+"_"+df1["Amino_Acid"]
+     df2["specific_Protein_aa"]=df2["Protein"]+"_"+df2["Amino_Acid"]
+     final_df=merge_df(df1,df2)
+     final_df.drop(["Protein_y","Amino_Acid_y"],axis=1,inplace=True)
+     final_df.rename(
+          columns={
+               "Protein_x":"Protein",
+               "Amino_Acid_x":"Amino_Acid"
+          },
+          inplace=True   
+     )
+     print (final_df.head())
+# merge sift and foldx dataset into one final dataframe
+def merge_df(df1,df2):
+     final_df=pd.merge(df1,df2, on="specific_Protein_aa")
+     return final_df
+
+
+
+
+main()
+    
