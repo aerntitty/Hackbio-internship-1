@@ -21,16 +21,14 @@ What can you say about the structural property and functional property
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from collections import Counter
+
 def main():
 
-     column_names=['Protein','Amino_Acid','sift_Score']
+     column_df1=['Protein','Amino_Acid','sift_Score']
+     column_df2=['Protein','Amino_Acid','foldX_Score']
 
-     df1=pd.read_csv(r"Hackbio-internship-1-1\shift.csv",sep=',',names=column_names,header=0)
-     df2=pd.read_csv(r"Hackbio-internship-1-1\foldX.csv",sep=',',names=column_names,header=0)
-     print(df2.head())
-     
-
+     df1=pd.read_csv(r"Hackbio-internship-1-1\shift.csv",sep=',',names=column_df1,header=0)
+     df2=pd.read_csv(r"Hackbio-internship-1-1\foldX.csv",sep=',',names=column_df2,header=0)
      df1["specific_Protein_aa"]=df1["Protein"]+"_"+df1["Amino_Acid"]
      df2["specific_Protein_aa"]=df2["Protein"]+"_"+df2["Amino_Acid"]
      final_df=merge_df(df1,df2)
@@ -43,13 +41,78 @@ def main():
           inplace=True   
      )
      print (final_df.head())
+     # mutated amino acids 
+     mutations_df=mutations(final_df)
+     print(mutations_df.head())
+     print(mutations_df.describe()) 
+
+     """
+      from this we see the lowest siftscore is 0 so any
+      amino acid with sift score 0 has the most functional impact 
+      And the highest foldx score is 67 so any amino acid with foldx score 67 has
+      the most structural impact
+
+     """
+
+     #amino acid with the most functional and structural impact
+     amino_acid=mutations_df.iloc[0,1]
+     print(f"The amino acid with the most functional and structural impact is {amino_acid}")
+
+     #extract the first amino acid from the amino_acid column
+     mutations_df["main_aa"]=mutations_df['Amino_Acid'].str[0]
+
+     #find the most impactful aa
+
+     counts=mutations_df["main_aa"].value_counts()
+     most_impactfulaa=counts.idxmax()
+     print(f"The most impactful amino acid is {most_impactfulaa}")
+
+     cols=['Aminoacid','Count']
+     freq_table=counts.reset_index()
+     freq_table.columns=cols
+     print(freq_table)
+
+     #plotting the frequency table
+     plot_freq_table(freq_table)
+     pie_chart(freq_table)
+
+
+     #amino acids with more than 100 occurances
+
+     aa_100=freq_table[freq_table["Count"]>100]
+     amino_acids=aa_100["Aminoacid"].tolist()
+     print(f"The amino acids with more than 100 occurences are {amino_acids}")
+
+     
+     
+     
+
 # merge sift and foldx dataset into one final dataframe
 def merge_df(df1,df2):
      final_df=pd.merge(df1,df2, on="specific_Protein_aa")
      return final_df
+#mutations that have a SIFT score below 0.05 and  FoldX Score above 2
+def mutations(df):
+     mutations=df[(df["sift_Score"]<0.05) & (df["foldX_Score"]>2)]
+     #sort the mutations to see which one is way lower than 0.05 and way higher than 2
+     mutations=mutations.sort_values(by="sift_Score",ascending=True)
+     mutations=mutations.sort_values(by="foldX_Score",ascending=False)
+     return mutations
+#plotting the frequency table
+def plot_freq_table(freq_table):
+     plt.figure(figsize=(10,5))
+     sns.barplot(x=freq_table['Aminoacid'],y=freq_table['Count'])
+     plt.title("Frequency of amino acids")
+     plt.xlabel("Amino acids")
+     plt.ylabel("Frequency")
+     plt.xticks(rotation=45)
+     plt.show()
 
-
-
+def pie_chart(freq_table):
+     plt.figure(figsize=(12,12))
+     plt.pie(freq_table['Count'],labels=freq_table['Aminoacid'],autopct='%1.1f%%')
+     plt.title("Frequency of amino acids")
+     plt.show()
 
 main()
     
