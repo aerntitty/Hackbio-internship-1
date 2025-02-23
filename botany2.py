@@ -21,8 +21,10 @@ What can you say about the plots you see?
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
+url="https://raw.githubusercontent.com/HackBio-Internship/2025_project_collection/refs/heads/main/Python/Dataset/Pesticide_treatment_data.txt"
 
-df= pd.read_csv(r"Stage 2/Pesticide_treatment_data.csv",sep=',', index_col=0)
+df=pd.read_csv(url, sep=r'\s+', engine='python' ,index_col=0)
 print(df.head(9))
 
 # difference in metabolic response (ΔM) between the DMSO treatment from the 24 hours treatment for the wild type and mutants
@@ -50,29 +52,42 @@ print(change_df.head())
 #create residual 
 
 
-# Define cutoff
-cutoff = 0.2
+# Define cutoff for residuals
+cutoff = 0.3
+
+
+
 
 # Compute residuals
 change_df["residual"]=change_df['mut_change']- change_df['wt_change']
-print(change_df.head())
 
+# Create the 'Outliers' column using np.where
+change_df['Outliers'] = np.where((-cutoff <= change_df['residual']) & (change_df['residual'] <= cutoff), 'not_outlier', 'outlier')
+
+print(change_df.head())
 
 # Assign colors based on cutoff
 def get_colour(residual):
-    if -cutoff<= residual <=cutoff:
+    if residual=='not_outlier':
         return'grey'
     return 'pink'
 
 
 # Apply function to get colors
-colors= change_df['residual'].apply(get_colour)
-print(change_df.head())
+colors= change_df['Outliers'].apply(get_colour)
+
 
 
 # Identify outlier metabolites
-outliers= change_df.loc[change_df['residual'].abs()>cutoff].index.to_list()
+outliers= change_df.loc[change_df['Outliers']=='outlier'].index.to_list()
+print('the outliers are:')
 print(outliers)
+print("*"*50)
+# Identify non-outlier metabolites  
+
+non_outliers= change_df.loc[change_df['Outliers']=='not_outlier'].index.to_list()
+print('the non_outliers are:')
+print(non_outliers)
 
 
 # Generate a scatter plot showing the difference for ΔM for WT and Mutants using the colors as hues
@@ -91,22 +106,16 @@ plt.legend()
 plt.show()
 
 
-
-
-
-
-
-# Generate line plots for outlier metabolite
-#i will select 6 metabolites
-selcted_cols=[ 'glycine','hexose_6_phosphate','isoleucine','pyruvic_acid','adipic_acid','uracil']
-
 # Plot line plots for outlier metabolites
-for metabolite in selcted_cols:
+import random
+# Select 6 random metabolites for fairness ^ ~ ^
+outliers= random.sample(outliers,6)
+for metabolite in outliers:
     plt.figure(figsize=(16,6))
     plt.plot(df.index,df[metabolite],color="pink",marker='o',linestyle='--')
     plt.xlabel('time_Conditions')
     plt.ylabel('metabolic_respnse')
     plt.xticks(rotation=50)
     plt.title(f'line plot for {metabolite}')
-    plt.legend()
     plt.show()
+print(f'the outliers we will discuss are {outliers.sort()}')
