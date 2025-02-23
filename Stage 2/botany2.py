@@ -61,7 +61,7 @@ cutoff = 0.3
 # Compute residuals
 change_df["residual"]=change_df['mut_change']- change_df['wt_change']
 
-# Create the 'Outliers' column using np.where
+# Create the 'Outliers' column using np.where thank you Oluwafisayo ^y^
 change_df['Outliers'] = np.where((-cutoff <= change_df['residual']) & (change_df['residual'] <= cutoff), 'not_outlier', 'outlier')
 
 print(change_df.head())
