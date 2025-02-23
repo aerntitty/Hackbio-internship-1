@@ -25,8 +25,12 @@ plt.axvline(x=1, color='green', linestyle='--')  # Threshold for upregulation (l
 plt.axvline(x=-1, color='green', linestyle='--')  # Threshold for downregulation (log2FoldChange < -1)
 # Top 5 upregulated genes
 top_upregulated_genes = transcriptomics_data[(transcriptomics_data['log2FoldChange'] > 1) & (transcriptomics_data['pvalue'] < 0.01)].nlargest(5, 'log2FoldChange')
+print('Top 5 upregulated genes:')
+print(top_upregulated_genes)
 # Top 5 downregulated genes
 top_downregulated_genes = transcriptomics_data[(transcriptomics_data['log2FoldChange'] < -1) & (transcriptomics_data['pvalue'] < 0.01)].nsmallest(5, 'log2FoldChange')
+print('\nTop 5 downregulated genes:')
+print(top_downregulated_genes)
 # Annotate top 5 upregulated genes on the plot (black color for better visibility)
 for i, gene in top_upregulated_genes.iterrows():
     plt.text(gene['log2FoldChange'], gene['neg_log10_pvalue'], gene['Gene'], fontsize=9, ha='left', color='black', verticalalignment='bottom', horizontalalignment='right')

@@ -66,36 +66,32 @@ change_df['Outliers'] = np.where((-cutoff <= change_df['residual']) & (change_df
 
 print(change_df.head())
 
-# Assign colors based on cutoff
-def get_colour(residual):
-    if residual=='not_outlier':
-        return'grey'
-    return 'pink'
+# Assign colors based on outliers ^{}^
 
-
-# Apply function to get colors
-colors= change_df['Outliers'].apply(get_colour)
+colurs={'outlier':'pink','not_outlier':'grey'}
 
 
 
-# Identify outlier metabolites
+
+
+# Identify outlier metabolites ^<>^
 outliers= change_df.loc[change_df['Outliers']=='outlier'].index.to_list()
 print('the outliers are:')
 print(outliers)
 print("*"*50)
-# Identify non-outlier metabolites  
+# Identify non-outlier metabolites  ^>^
 
 non_outliers= change_df.loc[change_df['Outliers']=='not_outlier'].index.to_list()
 print('the non_outliers are:')
 print(non_outliers)
 
 
-# Generate a scatter plot showing the difference for ΔM for WT and Mutants using the colors as hues
+# Generate a scatter plot showing the difference for ΔM for WT and Mutants using the colors as hues ^*^
 plt.figure(figsize=(10,6))
-sns.scatterplot(x='wt_change',y='mut_change',data=change_df,hue=colors,palette={"grey":"grey", "pink":"pink"})
+sns.scatterplot(x='wt_change',y='mut_change',data=change_df,hue='Outliers',palette=colurs,edgecolor=None,alpha=0.7)
 
 
-# Fit a y = x reference line (slope=1, intercept=0)
+# Fit a y = x reference line (slope=1, intercept=0) ^_^
 x_vals=change_df['wt_change']
 plt.plot(x_vals,x_vals, color='cyan',linestyle="--",label='y=x=(slope=1)')
 
@@ -106,9 +102,9 @@ plt.legend()
 plt.show()
 
 
-# Plot line plots for outlier metabolites
+# Plot line plots for outlier metabolites ^%^
 import random
-# Select 6 random metabolites for fairness ^ ~ ^
+# Select 6 random metabolites for fairness ps i couldnt just pick six i am just a girl lmalone ^~^
 outliers= random.sample(outliers,6)
 for metabolite in outliers:
     plt.figure(figsize=(16,6))
@@ -118,4 +114,4 @@ for metabolite in outliers:
     plt.xticks(rotation=50)
     plt.title(f'line plot for {metabolite}')
     plt.show()
-print(f'the outliers we will discuss are {outliers.sort()}')
+print(f'the outliers we will discuss are {outliers}')
