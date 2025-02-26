@@ -129,3 +129,9 @@ plt.suptitle("Line Plots for Outlier Metabolites", fontsize=16)
 plt.show()
 
 print(f"The outliers are {outliers}")
+
+"""
+githhub rep :https://github.com/aerntitty/Hackbio-internship-1/blob/main/Stage%202/biochemistry.py
+linkdein: 
+https://www.linkedin.com/posts/nora-iyeh-bb94a32a3_hackbiointernship-datascience-bioinformatics-activity-7300354925174128640-C0ws?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEk4pP0ByfDyuSk1LhIThOUvbjX6eb_Nkrc
+"""
