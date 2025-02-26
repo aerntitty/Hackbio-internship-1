@@ -26,9 +26,14 @@ def main():
      
      column1=['Protein','Amino_Acid', 'shift_Score']
      column2=['Protein','Amino_Acid', 'foldX_Score']
+     url1=r"https://raw.githubusercontent.com/HackBio-Internship/public_datasets/main/R/datasets/sift.tsv"  
+     url2=r"https://raw.githubusercontent.com/HackBio-Internship/public_datasets/main/R/datasets/foldX.tsv"
      
-     df1=pd.read_csv(r"/Users/beckyiyeh/Documents/Hackbio-internship-1/Stage 2/shift.csv",sep=',',names= column1 , header=0)
-     df2=pd.read_csv(r"/Users/beckyiyeh/Documents/Hackbio-internship-1/Stage 2/foldX.csv",sep=',',names= column2 , header=0)
+     df1=pd.read_csv(url1,sep="/t",names= column1 , header=0,engine='python')	
+     df2=pd.read_csv(url2,sep='/t',names= column2 , header=0,engine='python')  
+
+     print(df1.head())
+       
      
      
      
