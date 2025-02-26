@@ -154,3 +154,11 @@ print(f"T-test between BMI and Diabetes: t-value = {t_test_bmi_diabetes:.2f}, p-
 
 t_test_rs ,p_value_rs= stats.ttest_ind(df[df["RelationshipStatus"]=='Committed']["AlcoholYear"], df[df["RelationshipStatus"]=='Single']["AlcoholYear"])
 print(f'T-test between RelationshipStatus and Alcohol year: t-value = {t_test_rs:.2f}, p-value = {p_value_rs:.2f}"')
+
+"""
+github linkfor task: https://github.com/aerntitty/Hackbio-internship-1/blob/main/Stage%202/PH.py
+linkedein post:https://www.linkedin.com/posts/nora-iyeh-bb94a32a3_hackbiointernship-datascience-publichealth-activity-7300340943931518976-f-9x?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEk4pP0ByfDyuSk1LhIThOUvbjX6eb_Nkrc 
+
+
+
+"""
