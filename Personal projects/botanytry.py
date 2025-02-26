@@ -29,27 +29,27 @@ print(df.head(9))
 
 # difference in metabolic response (ΔM) between the DMSO treatment from the 24 hours treatment for the wild type and mutants
 # Select relevant rows for wild_type
+wt_dmso=df.loc["WT_DMSO_1"]
+wt_24hrs=df.loc["WT_pesticide_24h_1"]
 
-WT_dmso=df.loc['WT_DMSO_1']
-WT_24h =df.loc["WT_pesticide_24h_1"]
 
 # select relevan roles for the mutant
+mt_dmso=df.loc["mutant_DMSO_1"]
+mt_24hrs=df.loc["mutant_pesticide_24h_1"]
 
-mutant_DMSO =df.loc["mutant_DMSO_1"]
-mutant_24hrs= df.loc["mutant_pesticide_24h_1"]
 
 
 # Compute ΔM for each condition
-deltaM_wt=WT_24h - WT_dmso
-deltaM_mut=mutant_24hrs-mutant_DMSO
+delta_wt=wt_24hrs-wt_dmso
+delta_mt=mt_24hrs-mt_dmso
 
 
 #create a dataframe
-change_df=pd.DataFrame({'wt_change':deltaM_wt, 'mut_change':deltaM_mut})
-print(change_df.head())
+final_df=pd.DataFrame({"delta_wt": delta_wt, "delta_mt" : delta_mt})
 
 
-#create residual 
+
+
 
 
 # Define cutoff for residuals
@@ -59,55 +59,63 @@ cutoff = 0.3
 
 
 # Compute residuals
-change_df["residual"]=change_df['mut_change']- change_df['wt_change']
+final_df["Residuals"]=final_df['delta_wt']-final_df['delta_mt']
+
 
 # Create the 'Outliers' column using np.where thank you Oluwafisayo ^y^
-change_df['Outliers'] = np.where((-cutoff <= change_df['residual']) & (change_df['residual'] <= cutoff), 'not_outlier', 'outlier')
+final_df["Outliers"]=np.where((-cutoff<=final_df["Residuals"])&(final_df["Residuals"]<= cutoff),"non_outlier","outlier")
+print(final_df.head(9))
 
-print(change_df.head())
 
-# Assign colors based on outliers ^{}^
 
-colurs={'outlier':'pink','not_outlier':'grey'}
 
 
 
 
 
 # Identify outlier metabolites ^<>^
-outliers= change_df.loc[change_df['Outliers']=='outlier'].index.to_list()
-print('the outliers are:')
+outliers=final_df.loc[final_df['Outliers']=="outlier"].index.to_list()
+print("the outliers are :")
 print(outliers)
-print("*"*50)
+
 # Identify non-outlier metabolites  ^>^
 
-non_outliers= change_df.loc[change_df['Outliers']=='not_outlier'].index.to_list()
-print('the non_outliers are:')
+non_outliers=final_df.loc[final_df['Outliers']=="non_outlier"].index.to_list()
+print("the non_outliers are :")
 print(non_outliers)
 
 
+
+
 # Generate a scatter plot showing the difference for ΔM for WT and Mutants using the colors as hues ^*^
-plt.figure(figsize=(10,6))
-sns.scatterplot(x='wt_change',y='mut_change',data=change_df,hue='Outliers',palette=colurs,edgecolor=None,alpha=0.7)
+
+# Assign colors based on outliers ^{}^
+colours=({"outlier":"pink","non_outlier":"grey"})
+plt.figure(figsize=(16,6))
+sns.scatterplot(data=final_df,x="delta_wt",y="delta_mt",hue="Outliers",palette=colours,edgecolor=None,alpha=0.7)
+
+
+
 
 
 # Fit a y = x reference line (slope=1, intercept=0) ^_^
-x_vals=change_df['wt_change']
-plt.plot(x_vals,x_vals, color='cyan',linestyle="--",label='y=x=(slope=1)')
-
-plt.xlabel('wt_change')
-plt.ylabel('mut_change')
-plt.title("scatter_plot of wt/mt")
+x_val=final_df["delta_wt"]
+plt.plot(x_val,x_val,linestyle="--",color="black",label="y=x=(slope1)")
+plt.title("ΔM for WT and Mutants")
+plt.xlabel("Wildtype")
+plt.ylabel( "Mutated_Type")
 plt.legend()
 plt.show()
 
 
 # Plot line plots for outlier metabolites ^%^
+
+# Select 6 random metabolites for fairness ps i couldnt just pick six i am just a girl lmalone ^~^
 import random
 outliers = random.sample(outliers, 6)
 
 # Create a figure with subplots
-fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(16, 18)) 
+fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(16, 18))  # Adjust the number of rows and columns as needed
 
 # Flatten the axes array for easy iteration
 axes = axes.flatten()
@@ -123,9 +131,9 @@ for i, metabolite in enumerate(outliers):
 
 # Adjust layout to prevent overlap
 plt.tight_layout()
-plt.subplots_adjust(top=0.95, bottom=0.10, left=0.05, right=0.95, hspace=0.4, wspace=0.4)  # Add padding for more space
+plt.subplots_adjust(top=0.95, bottom=0.10, left=0.05, right=0.95, hspace=0.4, wspace=0.4)  # Add padding
 plt.suptitle("Line Plots for Outlier Metabolites", fontsize=16)
-
+# Show the figure with all subplots
 plt.show()
 
 print(f"The outliers are {outliers}")
