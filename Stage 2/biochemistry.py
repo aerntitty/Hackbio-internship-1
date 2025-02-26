@@ -113,6 +113,32 @@ def pie_chart(freq_table):
 main()
 
 """
+Amino Acid with the Highest Impact on Protein Structure and Function
+Glycine (G) has the highest impact on protein structure and function due to its unique structural and functional properties. Structurally, glycine is the smallest amino acid with only a hydrogen atom as its side chain, making it highly flexible. This flexibility allows it to fit into tight spaces within proteins, particularly in turns and loops, and facilitates structural changes. Functionally, glycine is critical in maintaining protein folding, influencing secondary structures such as β-turns, and is often found in collagen, contributing to its stability.
+
+Structural and Functional Properties of Amino Acids with More Than 100 Occurrences
+The most frequently occurring amino acids—G, L, A, P, V, R, I, Y, D, F, S, T, W—exhibit distinct structural and functional roles in proteins:
+
+Small and Flexible (G, A, P):
+
+Glycine (G): Smallest amino acid, increases flexibility, found in turns.
+Alanine (A): Hydrophobic, stabilizes α-helices.
+Proline (P): Rigid, introduces kinks in protein structures.
+Hydrophobic and Structural (L, V, I, F, W, Y):
+
+Leucine (L), Valine (V), Isoleucine (I): Hydrophobic, stabilize protein cores.
+Phenylalanine (F), Tryptophan (W), Tyrosine (Y): Aromatic, involved in stacking interactions, contribute to protein stability and signaling.
+Charged and Reactive (R, D):
+
+Arginine (R): Positively charged, participates in hydrogen bonding and salt bridges.
+Aspartic Acid (D): Negatively charged, plays a role in enzymatic active sites and interactions.
+Polar and Catalytic (S, T):
+
+Serine (S), Threonine (T): Contain hydroxyl groups, involved in enzymatic activity and phosphorylation for cell signaling.
+These amino acids play crucial roles in determining protein folding, stability, and function, contributing to diverse biological processes.
+"""
+
+"""
 
 github: https://github.com/aerntitty/Hackbio-internship-1/blob/main/Stage%202/biochemistry.py
 linkedin:https://www.linkedin.com/posts/nora-iyeh-bb94a32a3_hackbiointernship-bioinformatics-proteinengineering-activity-7300348819769028608-Yv77?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEk4pP0ByfDyuSk1LhIThOUvbjX6eb_Nkrc
