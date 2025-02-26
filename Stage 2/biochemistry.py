@@ -111,4 +111,12 @@ def pie_chart(freq_table):
      plt.show()
 
 main()
+
+"""
+
+github: https://github.com/aerntitty/Hackbio-internship-1/blob/main/Stage%202/biochemistry.py
+linkedin:<iframe src=https://www.linkedin.com/posts/nora-iyeh-bb94a32a3_hackbiointernship-bioinformatics-proteinengineering-activity-7300348819769028608-Yv77?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEk4pP0ByfDyuSk1LhIThOUvbjX6eb_Nkrc
+"""
+    
+
     
